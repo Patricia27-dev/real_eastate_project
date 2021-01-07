@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} - {{ listing.title }} {% endblock %}
+{% load humanize %}
+{% block content %}
+<div class="all-title-box" style="background: url(/static/images/inner-bg.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{listing.address}}<br> <h5 style="color: white; font-weight: bold;">{{listing.state}} {{listing.zipcode}}, USA</h5>
+                </h2>
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'listings' %}">Listings</a></li>
+                        <li>Property</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- single listings -->
+<hr class="invis"> 
+{% include 'partials/_alert.html' %}
+<hr class="invis"> 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+        <div class="service-widget">
+            <div class="property-main">
+                <div class="property-wrap">
+                    <figure class="post-media wow fadeIn">
+                        {% if listing.photo_1 %}
+                        <img src="{{ listing.photo_main.url }}" alt="" class="img-responsive">
+                        {% endif %}
+                        
+                        <div class="price">
+                            <span class="item-sub-price">${{ listing.price }}/sq ft</span> 
+                        </div>
+                    </figure>
+                    <div class="row mb-5 thumbs">
+                        <hr class="invis">
+                        <div class="col-md-3">
+                            <a href="{{ listing.photo_1.url }}" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
+                                <img src="{{ listing.photo_1.url }}" alt="" class="img-responsive">
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{{ listing.photo_2.url }}" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
+                                <img src="{{ listing.photo_2.url }}" alt="" class="img-responsive">
+                        </div>
+                    </div>
+                    <div class="item-body">
+                        <h3 style="color: black;">In Forests- Fresh Clean Air</h3>
+                        <div class="info">
+                            <hr class="invis">
+                            <p><i class="fa fa-bed" aria-hidden="true"></i><span> Bedroom: {{ listing.bedrooms}}</span><hr class="invis">
+                                <span> Bathroom: {{listing.bathroom}}</span><hr class="invis">
+                                 <span>Land Size: <span class="estate-x-size">{{listing.square_feet}}</span> 
+                               <span class="estate-x-unit">sq</span><br></span><hr class="invis"><i class="fa fa-building" aria-hidden="true"></i>
+                               <span>Building Size: <span class="estate-x-size">{{listing.lot_size}}</span>
+                               <span class="estate-x-unit">sq</span></span> <hr class="invis"><i class="fa fa-car" aria-hidden="true"></i> <span>
+                                    Garage: <span class="estate-x-size">{{listing.garage}}</span> <hr class="invis">
+                               </span> </p>
+                                <hr class="invis">
+                            <p><i class="fa fa-man" aria-hidden="true"></i>House <br>{{ listing.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end service -->
+    </div>
+
+    <!--realtor agent  -->
+    <div class="col-sm-3">
+        <div class="service-widget">
+            <div class="property-main">
+                <div class="property-wrap">
+                    <figure class="post-media wow fadeIn">
+                        <img src="{{ listing.realtor.photo.url }}" alt="" class="img-responsive">
+                    </figure>
+                    <div class="item-body">
+                        <h3 style="color: black;">Property Realtor</h3> <hr class="invis">
+                        <div class="item-foot">
+                            <div class="pull-left">
+                                <span class="prop-user-agent">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{listing.realtor}}
+                                </span>
+                            </div>
+                            <div class="pull-right">
+                                <span class="prop-date" style="font-size: 12px;">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    {{listing.list_date}}
+                                </span>
+                            </div>
+                            <hr class="invis">
+                            <div id="inquiry" style="background-color: black; padding-bottom:20px;margin-top:40px;">
+                                <a href="{% url 'contact' %}" data-scroll 
+                                class="" style="color: white; font-weight:bold; margin-left:30px;">Make An Inquiry</a>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div><!-- end service -->
+        </div>
+    </div>
+    
+    <div class="contact-form">
+        <form action="{% url 'contact' %}" method="POST">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+                <input type="hidden" name="user_id" value="{{ user.id }}">
+            {% else %}
+                <input type="hidden" name="user_id" value="0">
+
+            {% endif %}
+                <input type="hidden" name="realtor_email" value="{{ listing.realtor.email }}">
+                <input type="hidden" name="listing_id" value="{{ listing.id }}">
+            <div class="form-group">
+                <label for="property_name" name="full_name" style="color: black;">Property: </label>
+                <input name="listing" type="text" class="form-control" value="{{ listing.address }}">
+            </div>
+            <div class="form-group">
+                <label for="name" name="full_name" style="color: black;">Name: </label>
+                <input name="name" type="text" class="form-control" {% if user.is_authenticated %}
+                value="{{ user.first_name}} {{ user.last_name }}" {% endif %} required>
+            </div>
+            <div class="form-group">
+                <label for="email" name="full-name" style="color: black;">Email: </label>
+                <input name="email" type="email" class="form-control" {% if user.is_authenticated %}
+                value="{{ user.email}}" {% endif %} required>
+            </div>
+            <div class="form-froup">
+                <label for="phone" name="full-name" style="color: black;">Phone Number: </label>
+                <input name="phone" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="messgae" name="full-name" style="color: black;">Message: </label>
+                <textarea name="message" class="form-control" rows="5"></textarea>
+            </div>
+            <input type="submit" class="form-control submit" value="SEND MESSAGE" style="background-color: #a8cf45;">
+        </form>
+    </div>
+</div>
+<hr class="invis"> 
+{% endblock %}

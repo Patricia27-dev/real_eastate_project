@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- loading humanize to help with commas in numbers and i didnt see the symbol on the keyboard which is shiftkey \
+the code: intcomma for numbers , for time the symbol timesince-->
+{% load humanize %}
+
+{% block title %} - Browse Property Listings {% endblock %}
+
+{% block content %}
+<div class="all-title-box" style="background: url(/static/images/inner-bg.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Properties {{ name }}</h2>
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>Properties</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="features" class="section wb">
+<div class="container">
+    <div class="section-title row text-center">
+        <div class="col-md-8 col-md-offset-2">
+            <small>All Awesome Property Details</small>
+            <h3>Property Details</h3>
+            <p class="lead">Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus. Sed a tellus quis mi rhoncus dignissim.</p>
+        </div><!-- end col -->
+    </div><!-- end title -->
+    
+    <hr class="invis"> 
+    <div class="row">
+        {% if listings %}
+            {% for listing in listings %}
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="service-widget">
+                    <div class="property-main">
+                        <div class="property-wrap">
+                            <figure class="post-media wow fadeIn">
+                                <a href="{{ listing.photo_1.url }}" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
+                                <img src="{{ listing.photo_main.url }}" alt="" class="img-responsive">
+                                <div class="label-inner">
+                                    <span class="label-status label"><a href="{% url 'listing' listing.id %}">More info</a> </span>
+                                </div>
+                                <div class="price">
+                                    <span class="item-sub-price">${{ listing.price }}</span> 
+                                </div>
+                            </figure>
+                            <div class="item-body">
+                                <h3>{{listing.title}}</h3>
+                                <div class="info">
+                                    <p><i class="fa fa-bed" aria-hidden="true"></i><span> Bedroom: {{ listing.bedrooms}}</span>
+                                         <span> Bathroom: {{listing.bathroom}}</span>
+                                          <span>Land Size: <span class="estate-x-size">{{listing.square_feet}}</span> 
+                                        <span class="estate-x-unit">sq</span><br></span><i class="fa fa-building" aria-hidden="true"></i><span>
+                                             Building Size: <span class="estate-x-size">{{listing.lot_size}}</span> 
+                                        <span class="estate-x-unit">sq</span></span> <i class="fa fa-car" aria-hidden="true"></i> <span>
+                                             Garage: <span class="estate-x-size">{{listing.garage}}</span> 
+                                        </span> </p>
+                                    <p>House</p> 
+                                </div>
+                                <div class="adderess">
+                                    <i class="fa fa-map-pin" aria-hidden="true"></i>
+                                    {{listing.address}}, {{listing.city}}, {{listing.state}},{{listing.zipcode}}, USA
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-foot">
+                            <div class="pull-left">
+                                <span class="prop-user-agent">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{listing.realtor}}
+                                </span>
+                            </div>
+                            <div class="pull-right">
+                                <span class="prop-date">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    {{listing.list_date}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end service -->
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <p>No listings Available</p>
+            </div>
+        {% endif %}
+      
+    </div><!-- end row -->
+    <hr class="hr1">
+    <!-- pagination -->
+    <!-- <div class="container"> -->
+    <div class="row">
+        
+        <div class="col-md-12">
+            
+            {% if listings.has_other_pages %}
+            <nav>
+                    <ul class="pagination justify-content-center">
+                    {% if listings.has_previous %}
+                    <li class="page-item disabled">
+                        <!-- to put backward and forward arrows of pagination &laquo; and &raquo; -->
+                        <a href="?page={{listings.previous_page_number}}" class="page-link">Previous</a>
+                    </li>
+
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">Previous</a>
+                    </li>
+                    {% endif %}
+                        {% for i in listings.paginator.page_range %}
+                            {% if listings.number == i %}
+                                <li class="page-item active">
+                                    <a class="class-link">{{i}}</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                         {% if listings.has_next %}
+                                <li class="page-item">
+                                    <!-- to put backward and forward arrows of pagination &laquo; and &raquo; -->
+                                    <a href="?page={{listings.next_page_number}}" class="page-link">Next</a>
+                                </li>
+            
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">Next</a>
+                                </li>
+                        {% endif %}  
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div> 
+</div><!-- end container -->
+</div><!-- end section -->
+<hr class="invis"> 
+{% endblock %}

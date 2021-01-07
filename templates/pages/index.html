@@ -1,0 +1,199 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} - Homepage {% endblock %}
+
+{% block content %}
+<body class="realestate_version">
+
+	<ul class='slideshow'>
+		<li>
+			<span>Summer</span>
+		</li>
+		<li>		
+			<span>Fall</span>
+		</li>
+		<li>		
+			<span>Winter</span>
+		</li>
+		<li>
+			<span>Spring</span>
+		</li>
+	</ul>
+	<hr class="invis"> 
+    <div class="parallax first-section">
+        <div class="container">
+            <div class="row">
+            
+            <div class="col-md-6 wow slideInLeft hidden-xs hidden-sm">
+                <div class="contact_form">
+                    <h3><i class="fa fa-search grd1 global-radius"></i> Property Searching Got so Easy</h3>
+                        <p>Lorem Is a dummy Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi. </p>
+                            <hr class="invis"> 
+                            <form id="contactform1" class="row" name="contactform" action="{% url 'search' %}">
+                                {% csrf_token %}
+                                <fieldset class="row-fluid" style="width:360px">
+                                <div style="margin-top: 30px; margin-left: -200px;">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="keyword" id="keyword1" class="form-control" placeholder="Keyword(Pool, Garage,etc)">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="city" id="city1" class="form-control" placeholder="City">
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label class="sr-only">State (All)</label>
+                                    <select name="state" id="select_service1" class="selectpicker form-control" data-style="btn-white">
+                                        <option value="select_state" style="text-transform: uppercase;">State (All)</option>
+                                        {% for key,value in state_choices.items %}
+                                        <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}    
+                                    </select></div>
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label class="sr-only">Bedrooms</label>
+                                    <select name="bedrooms" class="selectpicker form-control" data-style="btn-white">
+                                        <option selected="true" disabled="disabled" style="text-transform: uppercase;">Bedrooms (All)</option>
+                                        {% for key,value in bedroom_choices.items %}
+                                        <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %} 
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label class="sr-only">Max price?</label>
+                                    <select name="price" id="select_price1" class="selectpicker form-control" data-style="btn-white">
+                                        <option selected="true" disabled="disabled" style="text-transform: uppercase;">Max Price (All)</option>
+                                        {% for key,value in price_choices.items %}
+                                        <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %} 
+                                    </select>
+                                </div>
+                            </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                                    <button type="submit" value="SEND" id="submit1" class="btn btn-light btn-radius btn-brd grd1 btn-block" style="margin-left:60px;">Submit Form</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="big-tagline clearfix">
+                        <h2>Sell/Buy Your Property with CITY Real Estate</h2>
+                        <p class="lead">With CITY Real Estate responsive landing page template, you can promote your all property & real estate projects. </p>
+                        <a data-scroll href="{% url 'listings' %}" class="btn btn-light btn-radius grd1 btn-brd">View Gallery</a>
+                    </div>
+                </div>
+                
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div> <!-- end section -->
+    
+	<div class="about-box">
+		<div class="container">
+			<div class="row">
+                <div class="top-feature owl-carousel owl-theme">
+                    <div class="item">
+                        <div class="single-feature">
+                            <div class="icon"><img src="{% static 'images/icon-01.png' %}" class="img-responsive" alt=""></div>
+                            <h4><a href="#">Full Furnished</a></h4>
+                            <p>Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi. </p>
+                        </div> 
+                    </div>
+                    <div class="item">
+                        <div class="single-feature">
+                            <div class="icon"><img src="{% static 'images/icon-02.png' %}" class="img-responsive" alt=""></div>
+                            <h4><a href="#">Living Inside a Nature</a></h4>
+                            <p>Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi.</p>
+                        </div> 
+                    </div>
+                    <div class="item">
+                        <div class="single-feature">
+                            <div class="icon"><img src="{% static 'images/icon-03.png' %}" class="img-responsive" alt=""></div>
+                            <h4><a href="#">Luxurious Fittings</a></h4>
+                            <p>Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi. </p>
+                        </div> 
+                    </div>
+                    <div class="item">
+                        <div class="single-feature">
+                            <div class="icon"><img src="{% static 'images/icon-04.png' %}" class="img-responsive" alt=""></div>
+                            <h4><a href="#">Non Stop Security</a></h4>
+                            <p>Lorem Is a dummy Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi. </p>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+			<hr class="hr1">
+			
+		
+    <div id="features" class="section wb">
+        <div class="container">
+            <div class="section-title row text-center">
+                <div class="col-md-8 col-md-offset-2">
+                    <h3>Latest Property Details</h3>
+                    </div><!-- end col -->
+            </div><!-- end title -->
+            
+            <div class="row">
+                {% if listings %}
+                {% for listing in listings %}
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="service-widget">
+                        <div class="property-main">
+                            <div class="property-wrap">
+                                <figure class="post-media wow fadeIn">
+                                    <a href="{{ listing.photo_1.url }}" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
+                                    <img src="{{ listing.photo_main.url }}" alt="" class="img-responsive">
+                                    <div class="label-inner">
+                                        <span class="label-status label"><a href="{% url 'listing' listing.id %}">More info</a> </span>
+                                    </div>
+                                    <div class="price">
+                                        <span class="item-sub-price">${{listing.price}}/sq ft</span> 
+                                    </div>
+                                </figure>
+                                <div class="item-body">
+                                    <h3>{{listing.title }}</h3>
+                                    <div class="info">
+                                        <p><span>Bedroom: {{listing.bedrooms}}</span> <span>Bathroom: {{listing.bathroom}}</span> <span>Land Size: 
+                                            <span class="estate-x-size">{{listing.lot_size}}</span> <span class="estate-x-unit">square</span></span> 
+                                            <span>Building Size: <span class="estate-x-size">{{listing.square_feet}}</span> <span class="estate-x-unit">square</span></span> <span>Garage: {{listing.garage}}</span></p>
+                                        <p>House</p> 
+                                    </div>
+                                    <div class="adderess">
+                                        <i class="fa fa-map-pin" aria-hidden="true"></i>
+                                        {{listing.address}}, {{listing.city}}, {{listing.state}}, {{listing.zipcode}}, USA
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-foot">
+                                <div class="pull-left">
+                                    <span class="prop-user-agent">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        {{listing.realtor }}
+                                    </span>
+                                </div>
+                                <div class="pull-right">
+                                    <span class="prop-date">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        {{listing.list_date}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end service -->
+                </div>
+
+                {% endfor %}
+                {% else %}
+                  <div class="col-md-12">
+                      <p>No Listings Available</p>
+                  </div>
+                {% endif %}
+                
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div>
+    </div>
+    <hr class="invis"> 
+{% endblock %}

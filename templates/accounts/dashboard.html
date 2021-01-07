@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %} - User Dashboard {% endblock %}
+
+{% block content %}
+
+<div class="all-title-box" style="background: url(/static/images/inner-bg.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>User Dashboard</h2>
+                <h3 style="color: white;">Manage your account</h3>
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>Dashboard</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="invis"> 
+
+<section id="dashboard" class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Welcome {{user.first_name }}</h2>
+                {% if contacts %}
+                    <p>Here are the property listings that you have inquired about</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Property</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contact in contacts %}
+                            <tr>
+                                <td>{{ contact.id }}</td>
+                                <td>{{ contact.listing }}</td>
+                                <td>
+                                    <a href="{% url 'listing' contact.listing_id %}" class="btn btn-light" style="background-color: black;">View Listing</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>You have not made any inquiry </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<hr class="invis"> 
+{% endblock %}

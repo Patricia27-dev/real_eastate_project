@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} - About {% endblock %}
+
+{% block content %}
+
+<div class="all-title-box" style="background: url(/static/images/inner-bg.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>About Us</h2>
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>About Us</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="invis"> 
+<div class="about-box">
+    <div class="container">
+        <div class="row">
+            <div class="top-feature owl-carousel owl-theme">
+                <div class="item">
+                    <div class="single-feature">
+                        <div class="icon"><img src="{% static 'images/icon-01.png' %}" class="img-responsive" alt=""></div>
+                        <h4><a href="#">Full Furnished</a></h4>
+                        <p>Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi. </p>
+                    </div> 
+                </div>
+                <div class="item">
+                    <div class="single-feature">
+                        <div class="icon"><img src="{% static 'images/icon-02.png' %}" class="img-responsive" alt=""></div>
+                        <h4><a href="#">Living Inside a Nature</a></h4>
+                        <p>Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi.</p>
+                    </div> 
+                </div>
+                <div class="item">
+                    <div class="single-feature">
+                        <div class="icon"><img src="{% static 'images/icon-03.png' %}" class="img-responsive" alt=""></div>
+                        <h4><a href="#">Luxurious Fittings</a></h4>
+                        <p>Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi. </p>
+                    </div> 
+                </div>
+                <div class="item">
+                    <div class="single-feature">
+                        <div class="icon"><img src="{% static 'images/icon-04.png' %}" class="img-responsive" alt=""></div>
+                        <h4><a href="#">Non Stop Security</a></h4>
+                        <p>Lorem Is a dummy Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi. </p>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        
+        <hr class="hr1">
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="post-media wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+                    <img src="{% static 'images/about_bg.jpg' %}" alt="" class="img-responsive">                        
+                </div><!-- end media -->
+            </div>
+            <div class="col-md-6">
+                <div class="message-box right-ab">
+                    <h4>Awards Winning Real Estate Company</h4>
+                    <h2>Welcome to CITY Real Estate</h2>
+                    <p>Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus. Sed a tellus quis mi rhoncus dignissim.</p>
+                    <p>Aenean eleifend in felis id viverra. Vestibulum semper ex eu molestie pulvinar. Maecenas non efficitur metus, et semper sem. Mauris ligula sapien, gravida a scelerisque ut, vehicula sed mauris. Proin dapibus mi id vulputate euismod. Nam ullamcorper dui tellus, non lacinia lorem hendrerit eu. Donec at orci cursus, rutrum metus eget, cursus turpis.  </p>
+                    <a href="#" class="btn btn-light btn-radius grd1 btn-brd"> Read More </a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<hr class="invis"> 
+<!-- Realtor  section -->
+<div class="container">
+    <div class="row">
+<div id="testimonials" class="section lb">
+    <div class="container">
+        <div class="section-title row text-center">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>Real Estate Team </h3>
+                <p class="lead">Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus. Sed a tellus quis mi rhoncus dignissim.</p>
+            </div><!-- end col -->
+        </div><!-- end title -->
+
+        <div class="row">
+            {% if realtors %}
+            {% for realtor in realtors %}
+            <div class="col-md-4 col-sm-12">
+                <!-- <div class="testi-carousel owl-carousel owl-theme"> -->
+                    <div class="testimonial clearfix">
+                        <div class="desc">
+                            <h3><i class="fa fa-quote-left"></i> Staff <i class="fa fa-quote-right"></i></h3>
+                            <p class="lead">{{ realtor.description}}.</p>
+                            
+                        </div>
+                        <div class="testi-meta">
+                            <img src="{{ realtor.photo.url }}" alt="" class="img-responsive alignleft">
+                            <h4>{{ realtor.name }} <small>- {{realtor.email_address }} <br>{{realtor.phone}}<br>
+                                 {{ realtor.hire_date }} </small></h4>
+                        </div>
+                        <!-- end testi-meta -->
+                    </div>
+                    
+                    </div>
+                    <!-- end testimonial -->
+            {% endfor %}
+        </div><!-- end carousel -->
+            {% else %}
+            <div class="col-md-12">
+                <p>No Realtors Available </p>
+            </div>
+            {% endif %}
+        </div><!-- end col -->
+        </div>
+    </div><!-- end row -->
+</div><!-- end container -->
+<hr class="invis"> 
+<!-- agent of the month -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% if mvp_realtors %}
+            {% for realtor in mvp_realtors %}
+
+            <div id="agent" class="parallax section db parallax-off" style="background-image:url('uploads/parallax_02.png');">
+                <div class="container">
+                    <div class="section-title row text-center">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>Seller of the Month Details</h3>
+                            <p class="lead">Quisque eget nisl id nulla sagittis auctor quis id. 
+                                Aliquam quis vehicula enim, non aliquam risus. Sed a tellus quis mi rhoncus dignissim.</p>
+                        </div><!-- end col -->
+                    </div><!-- end title -->
+            
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="message-box">
+                                <!-- <h4>The Agent</h4> -->
+                                <h2>{{ realtor.name }}</h2>
+                                <p class="lead">{{ realtor.description }}</p>
+            
+                                <a href="{{realtor.phone}}" data-scroll class="btn btn-light global-radius btn-brd grd1 effect-1">Contact Me</a>
+                            </div><!-- end messagebox -->
+                        </div><!-- end col -->
+                        <div class="col-md-3">
+                            <div class="post-media wow fadeIn">
+                                <img src="{{ realtor.photo.url }}" alt="" class="img-responsive">
+                            </div><!-- end media -->
+                        </div><!-- end col -->
+                        
+                    </div><!-- end row -->
+                </div>
+            </div>
+
+            {% endfor %}
+            {% endif %}
+            
+            
+        </div>
+    </div>
+</div>
+<hr class="invis"> 
+{% endblock %}

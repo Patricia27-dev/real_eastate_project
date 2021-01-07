@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load humanize %}
+
+{% block title %} - Search Results {% endblock %}
+
+{% block content %}
+<div class="all-title-box" style="background: url(/static/images/inner-bg.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Search</h2>
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>Search</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="invis">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+                <div class="contact_form">
+                    <h3><i class="fa fa-search grd1 global-radius" style="margin-left: 350px;"></i> PROPERTY SEARCHING GOT SO EASY</h3>
+                        <p style="margin-left: 150px;">Lorem Is a dummy Mauris eu porta orci. In at erat enim. Suspendisse felis erat, volutpat at nisl sit amet, maximus molestie nisi. </p>
+                            <hr class="invis"> 
+                            <form id="contactform1" class="row" name="contactform" action="{% url 'search' %}" style="margin-left: 350px;">
+                                {% csrf_token %}
+                                <fieldset class="row-fluid" style="width:360px">
+                                <div style="margin-top: 30px; margin-left: -450px;">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="keywords" id="keyword1" class="form-control" placeholder="Keywords(Pool, Garage,etc)" value="{{ values.keywords }}">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="city" id="city1" class="form-control" placeholder="City" value="{{ values.city }}">
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label class="sr-only">State (All)</label>
+                                    <select name="state" id="select_service1" class="selectpicker form-control" data-style="btn-white">
+                                        <option selected="true" style="text-transform: uppercase;">State (All)</option>
+                                        {% for key,value in state_choices.items %}
+                                        <option value="{{ key }}"
+                                        {% if key == values.state %}
+                                            selected
+                                        {% endif %}
+                                        >{{ value }}</option>
+                                    {% endfor %}    
+                                    </select></div>
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label class="sr-only">Bedrooms</label>
+                                    <select name="bedrooms" class="selectpicker form-control" data-style="btn-white">
+                                        <option selected="true" disabled="disabled" style="text-transform: uppercase;">Bedrooms (All)</option>
+                                        {% for key,value in bedroom_choices.items %}
+                                        <option value="{{ key }}"
+                                        {% if key == values.bedrooms %}
+                                            selected
+                                        {% endif %}
+                                        >{{ value }}</option>
+                                    {% endfor %} 
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label class="sr-only">Max price?</label>
+                                    <select name="price" id="select_price1" class="selectpicker form-control" data-style="btn-white">
+                                        <option selected="true" disabled="disabled" style="text-transform: uppercase;">Max Price (All)</option>
+                                        {% for key,value in price_choices.items %}
+                                        <option value="{{ key }}"
+                                        {% if key == values.price %}
+                                            selected
+                                        {% endif %}
+                                        >{{ value }}</option>
+                                    {% endfor %} 
+                                    </select>
+                                </div>
+                            </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                                    <button type="submit" value="SEND" id="submit1" class="btn btn-light btn-radius btn-brd grd1 btn-block" style="margin-left:-25px;">Submit Form</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    
+    <hr class="hr1">
+    <div class="row">
+        {% if listings %}
+            {% for listing in listings %}
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="service-widget">
+                    <div class="property-main">
+                        <div class="property-wrap">
+                            <figure class="post-media wow fadeIn">
+                                <a href="{{ listing.photo_1.url }}" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
+                                <img src="{{ listing.photo_main.url }}" alt="" class="img-responsive">
+                                <div class="label-inner">
+                                    <span class="label-status label"><a href="{% url 'listing' listing.id %}">More info</a> </span>
+                                </div>
+                                <div class="price">
+                                    <span class="item-sub-price">${{ listing.price }}</span> 
+                                </div>
+                            </figure>
+                            <div class="item-body">
+                                <h3>{{listing.title}}</h3>
+                                <div class="info">
+                                    <p><i class="fa fa-bed" aria-hidden="true"></i><span> Bedroom: {{ listing.bedrooms}}</span>
+                                         <span> Bathroom: {{listing.bathroom}}</span>
+                                          <span>Land Size: <span class="estate-x-size">{{listing.square_feet}}</span> 
+                                        <span class="estate-x-unit">sq</span><br></span><i class="fa fa-building" aria-hidden="true"></i><span>
+                                             Building Size: <span class="estate-x-size">{{listing.lot_size}}</span> 
+                                        <span class="estate-x-unit">sq</span></span> <i class="fa fa-car" aria-hidden="true"></i> <span>
+                                             Garage: <span class="estate-x-size">{{listing.garage}}</span> 
+                                        </span> </p>
+                                    <p>House</p> 
+                                </div>
+                                <div class="adderess">
+                                    <i class="fa fa-map-pin" aria-hidden="true"></i>
+                                    {{listing.address}}, {{listing.city}}, {{listing.state}},{{listing.zipcode}}, USA
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-foot">
+                            <div class="pull-left">
+                                <span class="prop-user-agent">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{listing.realtor}}
+                                </span>
+                            </div>
+                            <div class="pull-right">
+                                <span class="prop-date">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    {{listing.list_date}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end service -->
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <p>No listings Available</p>
+            </div>
+            {% endif %}
+      
+        </div><!-- end row -->
+    </div>
+</div>
+<hr class="invis">
+{% endblock %}
